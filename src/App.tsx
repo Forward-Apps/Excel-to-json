@@ -1,10 +1,10 @@
-import React, { ChangeEvent, useEffect, useState } from 'react';
+import React, { ChangeEvent } from 'react';
 import * as XLSX from 'xlsx';
 
 export default function App() {
-  const [items, setItems] = useState<any[]>([]);
-  const [sheetName, setSheetName] = useState<string>('');
-  const [sheetNames, setSheetNames] = useState<string[]>([]);
+  const [items, setItems] = React.useState<any[]>([]);
+  const [sheetName, setSheetName] = React.useState<string>('');
+  const [sheetNames, setSheetNames] = React.useState<string[]>([]);
 
   const handleFile = (e: ChangeEvent<HTMLInputElement>) => {
     const files = e.target.files;
@@ -26,7 +26,7 @@ export default function App() {
     }
   };
 
-  useEffect(() => {
+  React.useEffect(() => {
     if (sheetName && sheetNames.includes(sheetName)) {
       const file = document.getElementById('excel') as HTMLInputElement;
       if (file && file.files && file.files[0]) {
