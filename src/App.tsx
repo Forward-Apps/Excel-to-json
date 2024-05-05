@@ -1,19 +1,8 @@
 import React, { ChangeEvent } from 'react';
 import * as XLSX from 'xlsx';
 
-interface QuizItem {
-  id: string;
-  options: {
-    a: string;
-    b: string;
-    c: string;
-    d: string;
-  };
-  [key: string]: any;
-}
-
 export default function App() {
-  const [items, setItems] = React.useState<QuizItem[]>([]);
+  const [items, setItems] = React.useState<any[]>([]);
 
   const handleFile = (e: ChangeEvent<HTMLInputElement>) => {
     const files = e.target.files;
@@ -26,8 +15,8 @@ export default function App() {
         const workbook = XLSX.read(data, { type: 'binary' });
         const worksheet = workbook.Sheets[workbook.SheetNames[0]];
         const range = XLSX.utils.decode_range(worksheet['!ref']!);
-        const columnHeaders: string[] = [];
-        const rows: QuizItem[] = [];
+        const columnHeaders: any[] = [];
+        const rows: any[] = [];
 
         // Lendo os cabeçalhos da linha 2
         for (let C = range.s.c; C <= range.e.c; ++C) {
@@ -40,7 +29,7 @@ export default function App() {
         // Lendo os dados de cada linha
         for (let R = range.s.r + 2; R <= range.e.r; ++R) {
           let isEmpty = true;
-          const row: Partial<QuizItem> = { options: {} };
+          const row: any = { options: {} };
 
           for (let C = range.s.c; C <= range.e.c; ++C) {
             const cellRef = XLSX.utils.encode_cell({ c: C, r: R });
@@ -61,7 +50,7 @@ export default function App() {
           }
 
           row.id = (R - range.s.r - 2).toString();  // Adicionando o ID começando de 0
-          rows.push(row as QuizItem);
+          rows.push(row);
         }
 
         setItems(rows);
