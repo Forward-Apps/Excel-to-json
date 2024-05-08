@@ -110,14 +110,14 @@ export default function App() {
         <div className="w-full">
           <pre className="bg-slate-800 text-wrap p-9 relative">
             <button className='absolute top-0 right-0 p-3 bg-emerald-200' type="button" onClick={() => {
-              navigator.clipboard.writeText(JSON.stringify(items, null, 2))
+              navigator.clipboard.writeText(JSON.stringify(items, null, 2).replace(/"(\w+)":/g, '$1:'))
                 .then(() => alert('Dados copiados com sucesso!'))
                 .catch(err => alert('Erro ao copiar dados: ' + err));
             }}>
               Copiar
             </button>
             <code className="text-white overflow-x-scroll" id="json">
-              {JSON.stringify(items, null, 2)}
+              {JSON.stringify(items, null, 2).replace(/"(\w+)":/g, '$1:')}
             </code>
           </pre>
         </div>
