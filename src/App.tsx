@@ -77,7 +77,7 @@ export default function App() {
           if (isEmpty) break;
 
           
-          row.id = R.toString();
+          row.id = row.id.toString()
           rows.push(row);
           }
 
